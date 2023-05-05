@@ -1,0 +1,32 @@
+{
+    "name": "viodev/laravel-slack",
+    "description": "Laravel package for sending slack message.",
+    "keywords": [
+        "laravel",
+        "slack"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Phillip McKeown",
+            "email": "phillip@viodev.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Viodev\\": "src"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "^7.0|^8.0|^9.0|^10.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Viodev\\Providers\\SlackServiceProvider"
+            ]
+        }
+    }
+}
