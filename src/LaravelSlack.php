@@ -138,6 +138,6 @@ class LaravelSlack
         if($this->level == self::WARNING) return '#ffc107';
         if($this->level == self::ERROR) return '#dc3545';
 
-        return '#A5A5A5';
+        return '#a5a5a5';
     }
 }
