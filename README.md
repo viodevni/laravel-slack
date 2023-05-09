@@ -46,7 +46,7 @@ $slack->addToBlock('Key 3', 'Value 3');
 // Start 2nd block with error trim
 
 $slack->newBlock('Errors', '1 error occurred');
-$slack->newBlock('Error 1', 'Exception 1')->error(); // Set error trim for current block
+$slack->addToBlock('Error 1', 'Exception 1')->error(); // Set error trim for current block
 
 // Complete block and send
 
