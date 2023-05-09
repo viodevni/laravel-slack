@@ -14,7 +14,7 @@ class SlackServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(LaravelSlack::class,  function () {
+        $this->app->bind(LaravelSlack::class,  function () {
             return new LaravelSlack(
                 config('app.name'),
                 config('slack.webhook_url')
