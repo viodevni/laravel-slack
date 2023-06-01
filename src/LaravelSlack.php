@@ -58,6 +58,12 @@ class LaravelSlack
         return $this->addToBlock('');
     }
 
+    public function info(): self
+    {
+        $this->level = self::INFO;
+        return $this;
+    }
+
     public function success(): self
     {
         $this->level = self::SUCCESS;
