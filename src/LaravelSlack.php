@@ -6,13 +6,14 @@ use Illuminate\Support\Facades\Http;
 
 class LaravelSlack
 {
+    const PRIMARY = 'primary';
     const INFO = 'info';
     const SUCCESS = 'success';
     const WARNING = 'warning';
     const ERROR = 'error';
 
-    private string $channel = 'info', $level = self::INFO;
-    private ?string $title = null;
+    private string $channel = 'info';
+    private ?string $level = null, $title = null;
     private array $blocks = [], $lines = [];
 
     private string $username, $webhook_url;
@@ -56,6 +57,12 @@ class LaravelSlack
     public function newLine() : self
     {
         return $this->addToBlock('');
+    }
+
+    public function primary(): self
+    {
+        $this->level = self::PRIMARY;
+        return $this;
     }
 
     public function info(): self
@@ -103,10 +110,12 @@ class LaravelSlack
         }
 
         try {
-            $response = Http::asJson()->post($this->webhook_url, $data);
+            $response = Http::withoutVerifying()->asJson()->post($this->webhook_url, $data);
         } catch (\Exception $e){
             return false;
         }
+
+        $this->blocks = [];
 
         if($response->failed()) return false;
 
@@ -132,6 +141,7 @@ class LaravelSlack
 
             $this->blocks[] = $block;
 
+            $this->level = null;
             $this->lines = [];
         }
 
@@ -140,10 +150,12 @@ class LaravelSlack
 
     private function getColor(): string
     {
-        if($this->level == self::SUCCESS) return '#28a745';
-        if($this->level == self::WARNING) return '#ffc107';
-        if($this->level == self::ERROR) return '#dc3545';
+        if($this->level == self::PRIMARY) return '#3B71CA';
+        if($this->level == self::INFO) return '#54B4D3';
+        if($this->level == self::SUCCESS) return '#14A44D';
+        if($this->level == self::WARNING) return '#E4A11B';
+        if($this->level == self::ERROR) return '#DC4C64';
 
-        return '#a5a5a5';
+        return '#9FA6B2';
     }
 }
